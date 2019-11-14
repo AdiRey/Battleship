@@ -1,7 +1,20 @@
-#include <iostream>
+#include <SFML/Graphics.hpp>
+
+using namespace sf;
 
 int main()
 {
-	std::cout << "ELO" << std::endl;
-	std::cout << "Siema";
+	RenderWindow window(VideoMode(1200, 600), "Sea Battle!", Style::Close);
+
+	while (window.isOpen())
+	{
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+		}
+		window.clear();
+		window.display();
+	}
 }

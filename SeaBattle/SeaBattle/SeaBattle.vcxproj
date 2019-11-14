@@ -130,7 +130,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="EndWindow.cpp" />
+    <ClCompile Include="Field.cpp" />
+    <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="InitMap.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="StartWindow.cpp" />
+    <ClCompile Include="Subtitle.cpp" />
+    <ClCompile Include="TextField.cpp" />
+    <ClCompile Include="User.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Board.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="EndWindow.h" />
+    <ClInclude Include="Field.h" />
+    <ClInclude Include="GameMap.h" />
+    <ClInclude Include="InitMap.h" />
+    <ClInclude Include="Ship.h" />
+    <ClInclude Include="StartWindow.h" />
+    <ClInclude Include="Subtitle.h" />
+    <ClInclude Include="TextField.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

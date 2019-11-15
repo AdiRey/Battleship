@@ -43,8 +43,12 @@ public:
 	InitState();
 	virtual ~InitState();
 
-	virtual void init(sf::RenderWindow* window) override;
-	virtual void handleInput() override;
+	bool update(Vector2f& pos, Event& event);
+	bool clickNext(Vector2f& pos, Event& event);
+	User** getUsers();
+
+	void init(sf::RenderWindow* window) override;
+	void handleInput() override;
 
 	void draw(RenderTarget& target, RenderStates states) const override;
 };

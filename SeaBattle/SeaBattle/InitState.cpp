@@ -55,53 +55,149 @@ void InitState::init(sf::RenderWindow* window)
 void InitState::handleInput()
 {
 	sf::Event event;
-	sf::Vector2f position = Vector2f(Mouse::getPosition(*window));
+	sf::Vector2f position = Vector2f(Mouse::getPosition(*this->window));
+	int i;
 
 	while (window->pollEvent(event))
 	{
 		if (event.type == Event::Closed)
 			window->close();
 
+		if (isAllSet())
+			showWrongSubtitle = true;
+		else
+			showWrongSubtitle = false;
+
+		try
+		{
+			for (i = 0; i < 10; i++)
+			{
+				if (whichUser == 0)
+					shipsOne[i]->update(position, event, *board);
+				else
+					shipsTwo[i]->update(position, event, *board);
+			}
+		}
+		catch (std::invalid_argument & ia)
+		{
+			if (whichUser == 0)
+				shipsOne[i]->correctShip(rightSetShip(i));
+			else
+				shipsTwo[i]->correctShip(rightSetShip(i));
+		}
+		catch (std::range_error & ia)
+		{
+			if (whichUser == 0)
+				shipsOne[i]->shipRotate(rightSetShip(i));
+			else
+				shipsTwo[i]->shipRotate(rightSetShip(i));
+		}
+		button->update(position, event);
+		clickNext(position, event);
+	}
+}
+
+bool InitState::clickNext(Vector2f& pos, Event& event)
+{
+	if (button->getButton().getGlobalBounds().contains(pos))
+	{
+		if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left && isClickNext)
+		{
+			isClickNext = false;
+			if (whichUser == 0)
+			{
+				if (isAllSet())
+				{
+					players[0] = new User("Player One");
+					players[0]->setShips(shipsOne);
+					button->getTextButton().setString("Play");
+					whichUser++;
+					playerName->setText("Player Two");
+					showWrongSubtitle = false;
+				}
+				else
+				{
+					showWrongSubtitle = true;
+				}
+			}
+			else if (whichUser == 1)
+			{
+				if (isAllSet())
+				{
+					players[1] = new User("Player Two");
+					for (int i = 0; i < 10; i++)
+					{
+						shipsTwo[i]->setAdditionalPositionOfShip(510, 0);
+					}
+					players[1]->setShips(shipsTwo);
+					return true;
+				}
+				else
+				{
+					showWrongSubtitle = true;
+				}
+			}
+		}
+		else if (event.type == Event::MouseButtonReleased)
+		{
+			isClickNext = true;
+		}
+	}
+	return false;
+}
+
+bool InitState::rightSetShip(int i) const
+{
+	for (int j = 0; j < 10; j++)
+	{
+		if (whichUser == 0)
+		{
+			if (i == j)
+				continue;
+			if (shipsOne[i]->getShip().getGlobalBounds().intersects(shipsOne[j]->getAroundShip().getGlobalBounds()))
+				return true;
+		}
+		else
+		{
+			if (i == j)
+				continue;
+			if (shipsTwo[i]->getShip().getGlobalBounds().intersects(shipsTwo[j]->getAroundShip().getGlobalBounds()))
+				return true;
+		}
+	}
+	return false;
+}
+
+User** InitState::getUsers()
+{
+	return this->players;
+}
+
+bool InitState::isAllSet()
+{
+	if (!whichUser)
+	{
+		allShip1 = 0;
 		for (int i = 0; i < 10; i++)
 		{
-			if (whichUser == 0)
-				shipsOne[i]->update(position, event, *board);
-			else
-				shipsTwo[i]->update(position, event, *board);
+			if (shipsOne[i]->getShipIsSetOrNot())
+				allShip1++;
 		}
+		if (allShip1 == 10)
+			return true;
 	}
-
-	if (isAllSet())
-		showWrongSubtitle = true;
 	else
-		showWrongSubtitle = false;
-
-	try
 	{
-		for (i = 0; i < 10; i++)
+		allShip2 = 0;
+		for (int i = 0; i < 10; i++)
 		{
-			if (whichUser == 0)
-				shipsOne[i]->update(pos, event, *board);
-			else
-				shipsTwo[i]->update(pos, event, *board);
+			if (shipsTwo[i]->getShipIsSetOrNot())
+				allShip2++;
 		}
+		if (allShip2 == 10)
+			return true;
 	}
-	catch (std::invalid_argument & ia)
-	{
-		if (whichUser == 0)
-			shipsOne[i]->correctShip(rightSetShip(i));
-		else
-			shipsTwo[i]->correctShip(rightSetShip(i));
-	}
-	catch (std::range_error & ia)
-	{
-		if (whichUser == 0)
-			shipsOne[i]->shipRotate(rightSetShip(i));
-		else
-			shipsTwo[i]->shipRotate(rightSetShip(i));
-	}
-	button->update(pos, event);
-	return clickNext(pos, event);
+	return false;
 }
 
 void InitState::draw(RenderTarget& target, RenderStates states) const

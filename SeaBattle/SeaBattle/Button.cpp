@@ -57,7 +57,7 @@ void Button::update(Vector2f& pos, Event& event)
 		{
 			this->soundOne.play();
 			this->hoverOnce = false;
-		}
+		} 
 		break;
 	case BTN_ACTIVE:
 		this->soundTwo.play();

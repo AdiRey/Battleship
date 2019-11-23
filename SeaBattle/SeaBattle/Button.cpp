@@ -7,6 +7,13 @@ Button::Button(float x, float y, float width, float height, std::string text, st
 	shape.setSize(Vector2f(width, height));
 	this->font.loadFromFile(fontName + ".ttf");
 
+	this->bufferOne.loadFromFile("music/Click2-Sebastian-759472264.ogg");
+	this->bufferTwo.loadFromFile("music/Click-On-SoundBible.com-1697535117.ogg");
+	this->soundOne.setBuffer(this->bufferOne);
+	this->soundTwo.setBuffer(this->bufferTwo);
+	this->soundOne.setLoop(false);
+	this->soundTwo.setLoop(false);
+
 	this->idColor = idColor;
 	this->hoverColor = hoverColor;
 	this->activeColor = activeColor;
@@ -28,17 +35,16 @@ Button::Button(float x, float y, float width, float height, std::string text, st
 
 void Button::update(Vector2f& pos, Event& event)
 {
-	buttonState = BTN_ID;
+	this->buttonState = BTN_ID;
 
 	if (shape.getGlobalBounds().contains(pos.x, pos.y))
 	{
-		buttonState = BTN_HOV;
-
+		this->buttonState = BTN_HOV;
 		if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
-		{
-			buttonState = BTN_ACTIVE;
-		}
+			this->buttonState = BTN_ACTIVE;
 	}
+	else
+		this->hoverOnce = true;
 
 	switch (buttonState)
 	{
@@ -47,8 +53,14 @@ void Button::update(Vector2f& pos, Event& event)
 		break;
 	case BTN_HOV:
 		text.setFillColor(hoverColor);
+		if (this->hoverOnce)
+		{
+			this->soundOne.play();
+			this->hoverOnce = false;
+		}
 		break;
 	case BTN_ACTIVE:
+		this->soundTwo.play();
 		text.setFillColor(activeColor);
 		break;
 	default:

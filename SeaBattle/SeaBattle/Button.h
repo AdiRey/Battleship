@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 using namespace sf;
 
 enum buttonStates { BTN_ID = 0, BTN_HOV = 1, BTN_ACTIVE = 2 };
@@ -9,7 +10,14 @@ class Button
 private:
 	int buttonState{ BTN_ID };
 
+	SoundBuffer bufferOne;
+	SoundBuffer bufferTwo;
+
+	Sound soundOne;
+	Sound soundTwo;
+
 	RectangleShape shape;
+	bool hoverOnce{ true };
 
 	Font font{};
 	Text text{};

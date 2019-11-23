@@ -41,10 +41,19 @@ InitState::InitState()
 	setShipsSubtitle->setOutlines(Color::Black, 2);
 	playerName->setOutlines(Color::Black, 2);
 }
+
 InitState::~InitState()
 {
-	delete button;
-	delete board;
+	for (auto& player : this->players)
+		delete player;
+	delete this->button;
+	delete this->setShipsSubtitle;
+	delete this->playerName;
+	delete this->board;
+	for (auto& ship : this->shipsOne)
+		delete ship;
+	for (auto& ship : this->shipsTwo)
+		delete ship;
 }
 
 void InitState::init(sf::RenderWindow* window)
@@ -60,14 +69,6 @@ void InitState::handleInput()
 
 	while (window->pollEvent(event))
 	{
-		if (event.type == Event::Closed)
-			window->close();
-
-		if (isAllSet())
-			showWrongSubtitle = true;
-		else
-			showWrongSubtitle = false;
-
 		try
 		{
 			for (i = 0; i < 10; i++)
@@ -92,55 +93,43 @@ void InitState::handleInput()
 			else
 				shipsTwo[i]->shipRotate(rightSetShip(i));
 		}
+
 		button->update(position, event);
-		clickNext(position, event);
+
+		if (event.type == Event::Closed)
+			window->close();
+		else if (clickNext(position, event))
+			appStates = AppStates::GAME;
 	}
+
+	if (isAllSet())
+		showWrongSubtitle = true;
+	else
+		showWrongSubtitle = false;
 }
 
-bool InitState::clickNext(Vector2f& pos, Event& event)
+bool InitState::clickNext(Vector2f& position, Event& event)
 {
-	if (button->getButton().getGlobalBounds().contains(pos))
+	if (this->manager.isShapeLeftClicked(this->button->getButton(), event, position))
 	{
-		if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left && isClickNext)
+		if (!whichUser && isAllSet())
 		{
-			isClickNext = false;
-			if (whichUser == 0)
-			{
-				if (isAllSet())
-				{
-					players[0] = new User("Player One");
-					players[0]->setShips(shipsOne);
-					button->getTextButton().setString("Play");
-					whichUser++;
-					playerName->setText("Player Two");
-					showWrongSubtitle = false;
-				}
-				else
-				{
-					showWrongSubtitle = true;
-				}
-			}
-			else if (whichUser == 1)
-			{
-				if (isAllSet())
-				{
-					players[1] = new User("Player Two");
-					for (int i = 0; i < 10; i++)
-					{
-						shipsTwo[i]->setAdditionalPositionOfShip(510, 0);
-					}
-					players[1]->setShips(shipsTwo);
-					return true;
-				}
-				else
-				{
-					showWrongSubtitle = true;
-				}
-			}
+			players[0] = new User("Player One");
+			players[0]->setShips(shipsOne);
+			button->getTextButton().setString("Play");
+			whichUser++;
+			playerName->setText("Player Two");
+			showWrongSubtitle = false;
 		}
-		else if (event.type == Event::MouseButtonReleased)
+		else if (whichUser && isAllSet())
 		{
-			isClickNext = true;
+			players[1] = new User("Player Two");
+			for (int i = 0; i < 10; i++)
+			{
+				shipsTwo[i]->setAdditionalPositionOfShip(510, 0);
+			}
+			players[1]->setShips(shipsTwo);
+			return true;
 		}
 	}
 	return false;
@@ -154,14 +143,14 @@ bool InitState::rightSetShip(int i) const
 		{
 			if (i == j)
 				continue;
-			if (shipsOne[i]->getShip().getGlobalBounds().intersects(shipsOne[j]->getAroundShip().getGlobalBounds()))
+			if (this->shipsOne[i]->getShip().getGlobalBounds().intersects(this->shipsOne[j]->getAroundShip().getGlobalBounds()))
 				return true;
 		}
 		else
 		{
 			if (i == j)
 				continue;
-			if (shipsTwo[i]->getShip().getGlobalBounds().intersects(shipsTwo[j]->getAroundShip().getGlobalBounds()))
+			if (this->shipsTwo[i]->getShip().getGlobalBounds().intersects(this->shipsTwo[j]->getAroundShip().getGlobalBounds()))
 				return true;
 		}
 	}
@@ -218,5 +207,4 @@ void InitState::draw(RenderTarget& target, RenderStates states) const
 	}
 	button->render(&target);
 	this->playerName->render(target);
-	/*this->textField.render(target);*/
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Board.h"
+#include "GameState.h"
 #include "Subtitle.h"
 #include "Ship.h"
 #include "Button.h"
@@ -8,12 +9,13 @@
 #include "TextField.h"
 #include "DEFINITIONS.h"
 #include "State.h"
+#include "EventManager.h"
 
 class InitState : public State
 {
 private:
 	sf::RenderWindow* window;
-
+	EventManager manager;
 
 	User* players[2];
 
@@ -37,19 +39,21 @@ private:
 	bool isClickNext{ true };
 	int whichUser{ 0 };
 
+	// Private methods
 	bool rightSetShip(int i) const;
 	bool isAllSet();
+	bool clickNext(Vector2f& posistion, Event& event);
 public:
+	// Constructor and destructor
 	InitState();
 	virtual ~InitState();
 
-	bool update(Vector2f& pos, Event& event);
-	bool clickNext(Vector2f& pos, Event& event);
+	// Public methods
 	User** getUsers();
 
-	void init(sf::RenderWindow* window) override;
+	// Inheritance
 	void handleInput() override;
-
+	void init(sf::RenderWindow* window) override;
 	void draw(RenderTarget& target, RenderStates states) const override;
 };
 

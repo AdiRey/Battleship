@@ -26,10 +26,13 @@ void EndState::handleInput()
 			window->close();
 		oneMoreTimeButton->update(position, event);
 		exitButton->update(position, event);
+		this->spriteSettings->update(position, event);
 		if (this->manager.isShapeLeftClicked(this->oneMoreTimeButton->getButton(), event, position))
 			appStates = AppStates::NEW_START;
 		else if (this->manager.isShapeLeftClicked(this->exitButton->getButton(), event, position))
 			window->close();
+		else if (this->manager.isSpriteLeftClicked(this->spriteSettings->getSprite(), event, position))
+			appStates = AppStates::SETTINGS;
 	}
 
 }
@@ -52,7 +55,8 @@ void EndState::initSets(User** users)
 
 void EndState::draw(RenderTarget& target, RenderStates states) const
 {
-	target.draw(sprite, states);
+	target.draw(this->sprite, states);
+	this->spriteSettings->render(&target);
 	this->subtitle->render(target);
 	this->oneMoreTimeButton->render(&target);
 	this->exitButton->render(&target);

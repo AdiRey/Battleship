@@ -8,6 +8,8 @@
 #include "InitState.h"
 #include "GameState.h"
 #include "EndState.h"
+#include "ChoiceState.h"
+#include "SettingsState.h"
 
 class Engine
 {
@@ -19,8 +21,11 @@ private:
 
 	bool isOk = true;
 
+	AppStates helper;
+
 	void run();
 	void init();
+	void switchState();
 public:
 	Engine() = delete;
 	Engine(unsigned int width, unsigned int height, std::string title);

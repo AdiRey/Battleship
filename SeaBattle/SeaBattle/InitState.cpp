@@ -69,6 +69,7 @@ void InitState::handleInput()
 
 	while (window->pollEvent(event))
 	{
+		this->spriteSettings->update(position, event);
 		try
 		{
 			for (i = 0; i < 10; i++)
@@ -97,9 +98,11 @@ void InitState::handleInput()
 		button->update(position, event);
 
 		if (event.type == Event::Closed)
-			window->close();
+			appStates = AppStates::CLOSE;
 		else if (clickNext(position, event))
-			appStates = AppStates::GAME;
+			appStates = AppStates::GAME_FRIEND;
+		else if (this->manager.isSpriteLeftClicked(this->spriteSettings->getSprite(), event, position))
+			appStates = AppStates::SETTINGS;
 	}
 
 	if (isAllSet())
@@ -192,6 +195,7 @@ bool InitState::isAllSet()
 void InitState::draw(RenderTarget& target, RenderStates states) const
 {
 	target.draw(sprite, states);
+	this->spriteSettings->render(&target);
 	if (!showWrongSubtitle)
 	{
 		setShipsSubtitle->render(target);

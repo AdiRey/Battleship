@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ChoiceState.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -139,7 +140,9 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="InitState.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SettingsState.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="SpriteClicker.cpp" />
     <ClCompile Include="StartState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Subtitle.cpp" />
@@ -149,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ChoiceState.h" />
     <ClInclude Include="DEFINITIONS.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="Engine.h" />
@@ -156,7 +160,9 @@
     <ClInclude Include="Field.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="InitState.h" />
+    <ClInclude Include="SettingsState.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="SpriteClicker.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Subtitle.h" />

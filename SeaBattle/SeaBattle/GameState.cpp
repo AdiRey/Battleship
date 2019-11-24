@@ -3,7 +3,7 @@
 
 GameState::GameState()
 {
-	textureToPointer.loadFromFile("images/strzalka2.png");
+	textureToPointer.loadFromFile("images/strzalka1.png");
 	pointer.setTexture(textureToPointer);
 	pointer.setPosition(595, 285);
 	pointer.setOrigin(45, 45);
@@ -40,8 +40,11 @@ void GameState::handleInput()
 
 	while (window->pollEvent(event))
 	{
+		this->spriteSettings->update(position, event);
 		if (event.type == Event::Closed)
 			window->close();
+		else if (this->manager.isSpriteLeftClicked(this->spriteSettings->getSprite(), event, position))
+			appStates = AppStates::SETTINGS;
 
 		for (int i = 0; i < 10; i++)
 		{
@@ -117,7 +120,7 @@ void GameState::handleInput()
 		}
 	}
 	if (this->player[0]->getWinner() || this->player[1]->getWinner())
-		appStates = AppStates::END;
+		appStates = AppStates::WINNER_WND;
 }
 
 void GameState::initSets(User** users)
@@ -202,7 +205,8 @@ void GameState::init(sf::RenderWindow* window)
 
 void GameState::draw(RenderTarget& target, RenderStates states) const
 {
-	target.draw(sprite, states);
+	target.draw(this->sprite, states);
+	this->spriteSettings->render(&target);
 	boards[0]->render(target);
 	boards[1]->render(target);
 	for (int i = 0; i < 10; i++)

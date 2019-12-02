@@ -148,6 +148,7 @@
     <ClCompile Include="Subtitle.cpp" />
     <ClCompile Include="TextField.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="VolumeState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Subtitle.h" />
     <ClInclude Include="TextField.h" />
     <ClInclude Include="User.h" />
+    <ClInclude Include="VolumeState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -47,7 +47,7 @@ void StartState::handleInput()
 
 void StartState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(this->sprite);
+	target.draw(this->sprite, states);
 	this->spriteSettings->render(&target);
 	this->startButton->render(&target);
 	this->volumeButton->render(&target);

@@ -7,7 +7,7 @@ InitState::InitState()
 
 	tableForShips.setPosition(570, 130);
 	tableForShips.setSize(Vector2f(125, 310));
-	tableForShips.setFillColor(Color::Red);
+	tableForShips.setFillColor(Color(120,120,120,168));
 
 	for (int i = 0; i < 10; i++)
 	{

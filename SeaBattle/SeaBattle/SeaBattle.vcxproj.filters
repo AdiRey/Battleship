@@ -13,123 +13,159 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\state">
+      <UniqueIdentifier>{1a6ff434-da0d-49ff-b631-c8b69291dd6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\state">
+      <UniqueIdentifier>{6a3427b7-6533-48d3-9ae1-6358e5709d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\service">
+      <UniqueIdentifier>{c236f1bd-7ffe-4554-85a4-a79ec3f93e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\service">
+      <UniqueIdentifier>{c29e4670-2591-4697-8bd1-654a5a36a459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\models">
+      <UniqueIdentifier>{de3b6c69-c93e-49b9-863f-7498f82997ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\models">
+      <UniqueIdentifier>{5e5d7482-25ec-4333-8446-00b449f7fa6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Board.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Field.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Subtitle.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="TextField.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="StartState.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="InitState.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="EventManager.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="ChoiceState.cpp">
+      <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
     <ClCompile Include="EndState.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
-    <ClCompile Include="ChoiceState.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="InitState.cpp">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
     <ClCompile Include="SettingsState.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteClicker.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="StartState.cpp">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
     <ClCompile Include="VolumeState.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Pliki źródłowe\service</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteClicker.cpp">
+      <Filter>Pliki źródłowe\service</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Pliki źródłowe\service</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Pliki źródłowe\models</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Pliki źródłowe\models</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Pliki źródłowe\models</Filter>
+    </ClCompile>
+    <ClCompile Include="Subtitle.cpp">
+      <Filter>Pliki źródłowe\models</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Pliki źródłowe\models</Filter>
+    </ClCompile>
+    <ClCompile Include="TextField.cpp">
+      <Filter>Pliki źródłowe\models</Filter>
+    </ClCompile>
+    <ClCompile Include="Slider.cpp">
+      <Filter>Pliki źródłowe\service</Filter>
+    </ClCompile>
+    <ClCompile Include="Soundtrack.cpp">
+      <Filter>Pliki źródłowe\service</Filter>
+    </ClCompile>
+    <ClCompile Include="GoodbyeState.cpp">
+      <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Board.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Field.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Subtitle.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="User.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="TextField.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="DEFINITIONS.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="StartState.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="InitState.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="EventManager.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="ChoiceState.h">
+      <Filter>Pliki nagłówkowe\state</Filter>
     </ClInclude>
     <ClInclude Include="EndState.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Pliki nagłówkowe\state</Filter>
     </ClInclude>
-    <ClInclude Include="ChoiceState.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="GameState.h">
+      <Filter>Pliki nagłówkowe\state</Filter>
+    </ClInclude>
+    <ClInclude Include="InitState.h">
+      <Filter>Pliki nagłówkowe\state</Filter>
     </ClInclude>
     <ClInclude Include="SettingsState.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Pliki nagłówkowe\state</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteClicker.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="StartState.h">
+      <Filter>Pliki nagłówkowe\state</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Pliki nagłówkowe\state</Filter>
     </ClInclude>
     <ClInclude Include="VolumeState.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Pliki nagłówkowe\state</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Pliki nagłówkowe\service</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Pliki nagłówkowe\service</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteClicker.h">
+      <Filter>Pliki nagłówkowe\service</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Pliki nagłówkowe\models</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Pliki nagłówkowe\models</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Pliki nagłówkowe\models</Filter>
+    </ClInclude>
+    <ClInclude Include="Subtitle.h">
+      <Filter>Pliki nagłówkowe\models</Filter>
+    </ClInclude>
+    <ClInclude Include="TextField.h">
+      <Filter>Pliki nagłówkowe\models</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Pliki nagłówkowe\models</Filter>
+    </ClInclude>
+    <ClInclude Include="Slider.h">
+      <Filter>Pliki nagłówkowe\service</Filter>
+    </ClInclude>
+    <ClInclude Include="Soundtrack.h">
+      <Filter>Pliki nagłówkowe\service</Filter>
+    </ClInclude>
+    <ClInclude Include="GoodbyeState.h">
+      <Filter>Pliki nagłówkowe\state</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

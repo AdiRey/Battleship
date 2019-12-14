@@ -3,21 +3,26 @@
 Engine::Engine(unsigned int width, unsigned int height, std::string title)
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(width, height), title, sf::Style::Close);
-	this->music.openFromFile("music/Battleship-_OST_-1-First-Transmission.ogg");
-	this->music.setLoop(true);
-	this->music.play();
 	this->window->setActive(true);
 	this->window->setVerticalSyncEnabled(true);
+
+	this->soundtrack = new Soundtrack();
+
 	appStates = AppStates::START;
+
 	this->states.push_back(new StartState());
 	this->states.push_back(new ChoiceState());
 	this->states.push_back(new InitState());
 	this->states.push_back(new GameState());
 	this->states.push_back(new EndState());
 	this->states.push_back(new SettingsState());
-	for (auto &state : states)
-		state->init(window);
-
+	this->states.push_back(new VolumeState());
+	this->states.push_back(new GoodbyeState());
+	for (auto& state : states)
+	{
+		state->init(this->window);
+		state->initMusic(this->soundtrack);
+	}
 	this->run();
 }
 
@@ -67,7 +72,12 @@ void Engine::run()
 			this->window->draw(*this->states[4]);
 			break;
 		case AppStates::VOLUME:
-			appStates = AppStates::START; // TODO
+			this->states[6]->handleInput();
+			this->window->draw(*this->states[6]);
+			break;
+		case AppStates::GOODBYE:
+			this->states[7]->handleInput();
+			this->window->draw(*this->states[7]);
 			break;
 		case AppStates::SETTINGS:
 			this->states[5]->handleInput();
@@ -94,8 +104,13 @@ void Engine::init()
 	this->states[3] = new GameState();
 	this->states[4] = new EndState();
 	this->states[5] = new SettingsState();
+	this->states[6] = new VolumeState();
+	this->states[7] = new GoodbyeState();
 	for (auto& state : states)
-		state->init(window);
+	{
+		state->init(this->window);
+		state->initMusic(this->soundtrack);
+	}
 }
 
 void Engine::switchState()
@@ -103,8 +118,10 @@ void Engine::switchState()
 	if (this->helper != appStates)
 	{
 		Sleep(150);
-		if (appStates == AppStates::SETTINGS)
+		if (appStates == AppStates::SETTINGS && helper != AppStates::VOLUME && helper != AppStates::GOODBYE)
 			reinterpret_cast<SettingsState*>(this->states[5])->setPreviousState(this->helper);
+		else if (appStates == AppStates::GOODBYE)
+			reinterpret_cast<GoodbyeState*>(this->states[7])->setPreviousState(this->helper);
 	}
 }
 
@@ -113,4 +130,5 @@ Engine::~Engine()
 	for (auto state : this->states)
 		delete state;
 	delete this->window;
+	delete this->soundtrack;
 }

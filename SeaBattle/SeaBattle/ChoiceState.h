@@ -7,6 +7,7 @@
 class ChoiceState : public State
 {
 private:
+	Soundtrack* soundtrack;
 
 	SpriteClicker* spriteClicker[2];
 	SpriteClicker* spriteClicker2[2];
@@ -17,8 +18,10 @@ private:
 public:
 	ChoiceState();
 	virtual ~ChoiceState();
+
 	void init(sf::RenderWindow* window) override;
 	void handleInput() override;
+	void initMusic(Soundtrack* soundtrack) override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 

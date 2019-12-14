@@ -1,12 +1,8 @@
 #include "EndState.h"
 EndState::EndState()
 {
-	const_cast<Texture&>(texture).loadFromFile("images/statkiStart.png");
-	sprite.setTexture(texture);
-	sprite.setPosition(0, 0);
-
-	oneMoreTimeButton = new Button(400, 425, 400, 50, "One more time");
-	exitButton = new Button(400, 505, 400, 50, "Exit");
+	this->oneMoreTimeButton = new Button(400, 425, 400, 50, "One more time");
+	this->exitButton = new Button(400, 505, 400, 50, "Exit");
 }
 
 EndState::~EndState()
@@ -22,8 +18,11 @@ void EndState::handleInput()
 	sf::Vector2f position = Vector2f(Mouse::getPosition(*this->window));
 	while (this->window->pollEvent(event))
 	{
-		if (event.type == Event::Closed)
-			window->close();
+		if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape))
+		{
+			this->soundtrack->getSoundClicked().play();
+			appStates = AppStates::GOODBYE;
+		}
 		oneMoreTimeButton->update(position, event);
 		exitButton->update(position, event);
 		this->spriteSettings->update(position, event);
@@ -40,6 +39,15 @@ void EndState::init(sf::RenderWindow* window)
 {
 	this->window = window;
 }
+
+void EndState::initMusic(Soundtrack* soundtrack)
+{
+	this->soundtrack = soundtrack;
+	this->oneMoreTimeButton->initMusic(this->soundtrack);
+	this->exitButton->initMusic(this->soundtrack);
+	this->spriteSettings->initMusic(this->soundtrack);
+}
+
 
 
 void EndState::initSets(User** users)

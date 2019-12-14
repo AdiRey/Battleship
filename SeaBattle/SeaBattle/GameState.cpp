@@ -42,8 +42,12 @@ void GameState::handleInput()
 	{
 		this->spriteSettings->update(position, event);
 		if (event.type == Event::Closed)
-			window->close();
-		else if (this->manager.isSpriteLeftClicked(this->spriteSettings->getSprite(), event, position))
+		{
+			this->soundtrack->getSoundClicked().play();
+			appStates = AppStates::GOODBYE;
+		}
+		else if (this->manager.isSpriteLeftClicked(this->spriteSettings->getSprite(), event, position)
+			|| Keyboard::isKeyPressed(Keyboard::Escape))
 			appStates = AppStates::SETTINGS;
 
 		for (int i = 0; i < 10; i++)
@@ -201,6 +205,12 @@ void GameState::allShipsDown()
 void GameState::init(sf::RenderWindow* window)
 {
 	this->window = window;
+}
+
+void GameState::initMusic(Soundtrack* soundtrack)
+{
+	this->soundtrack = soundtrack;
+	this->spriteSettings->initMusic(this->soundtrack);
 }
 
 void GameState::draw(RenderTarget& target, RenderStates states) const

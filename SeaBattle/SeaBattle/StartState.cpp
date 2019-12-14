@@ -3,14 +3,14 @@
 StartState::StartState()
 {
 	this->startButton = new Button(500, 405, 200, 50, "Start");
-	this->volumeButton = new Button(500, 455, 200, 50, "Volume");
+	this->settingsButton = new Button(500, 455, 200, 50, "Settings");
 	this->exitButton = new Button(500, 505, 200, 50, "Exit");
 }
 
 StartState::~StartState()
 {
 	delete this->startButton;
-	delete this->volumeButton;
+	delete this->settingsButton;
 	delete this->exitButton;
 }
 
@@ -26,30 +26,41 @@ void StartState::handleInput()
 
 	while (this->window->pollEvent(event))
 	{
-		this->spriteSettings->update(position, event);
 		this->startButton->update(position, event);
-		this->volumeButton->update(position, event);
+		this->settingsButton->update(position, event);
 		this->exitButton->update(position, event);
 
-		if (event.type == Event::Closed)
-			this->window->close();
+		if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape))
+		{
+			this->soundtrack->getSoundClicked().play();
+			appStates = AppStates::GOODBYE;
+		}
 		else if (this->manager.isShapeLeftClicked(this->startButton->getButton(), event, position))
 			appStates = AppStates::CHOICE;
+		else if (this->manager.isShapeLeftClicked(this->settingsButton->getButton(), event, position))
+			appStates = AppStates::SETTINGS;
 		else if (this->manager.isShapeLeftClicked(this->exitButton->getButton(), event, position))
 		{
-			appStates = AppStates::CLOSE;
+			appStates = AppStates::GOODBYE;
 			return;
 		}
-		else if (this->manager.isSpriteLeftClicked(this->spriteSettings->getSprite(), event, position))
-			appStates = AppStates::SETTINGS;
 	}
 }
+
+void StartState::initMusic(Soundtrack* soundtrack)
+{
+	this->soundtrack = soundtrack;
+	this->startButton->initMusic(this->soundtrack);
+	this->settingsButton->initMusic(this->soundtrack);
+	this->exitButton->initMusic(this->soundtrack);
+	this->spriteSettings->initMusic(this->soundtrack);
+}
+
 
 void StartState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->sprite, states);
-	this->spriteSettings->render(&target);
 	this->startButton->render(&target);
-	this->volumeButton->render(&target);
+	this->settingsButton->render(&target);
 	this->exitButton->render(&target);
 }

@@ -138,10 +138,13 @@
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GoodbyeState.cpp" />
     <ClCompile Include="InitState.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SettingsState.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Soundtrack.cpp" />
     <ClCompile Include="SpriteClicker.cpp" />
     <ClCompile Include="StartState.cpp" />
     <ClCompile Include="State.cpp" />
@@ -160,9 +163,12 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="GoodbyeState.h" />
     <ClInclude Include="InitState.h" />
     <ClInclude Include="SettingsState.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="Slider.h" />
+    <ClInclude Include="Soundtrack.h" />
     <ClInclude Include="SpriteClicker.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />

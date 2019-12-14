@@ -14,6 +14,8 @@
 class InitState : public State
 {
 private:
+	Soundtrack* soundtrack;
+
 	sf::RenderWindow* window;
 	EventManager manager;
 
@@ -54,6 +56,7 @@ public:
 	// Inheritance
 	void handleInput() override;
 	void init(sf::RenderWindow* window) override;
+	void initMusic(Soundtrack* soundtrack) override;
 	void draw(RenderTarget& target, RenderStates states) const override;
 };
 

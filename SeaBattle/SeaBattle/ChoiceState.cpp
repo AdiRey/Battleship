@@ -29,8 +29,11 @@ void ChoiceState::handleInput()
 	sf::Vector2f position = Vector2f(Mouse::getPosition(*this->window));
 	while (this->window->pollEvent(event))
 	{
-		if (event.type == Event::Closed)
-			appStates = AppStates::CLOSE;
+		if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape))
+		{
+			this->soundtrack->getSoundClicked().play();
+			appStates = AppStates::GOODBYE;
+		}
 		this->spriteSettings->update(position, event);
 		for (int i = 0; i < 2; i++)
 		{
@@ -112,6 +115,19 @@ void ChoiceState::handleInput()
 	}
 
 }
+
+void ChoiceState::initMusic(Soundtrack* soundtrack)
+{
+	this->soundtrack = soundtrack;
+	for (int i = 0; i < 2; i++)
+	{
+		this->spriteClicker[i]->initMusic(this->soundtrack);
+		this->spriteClicker2[i]->initMusic(this->soundtrack);
+		this->spriteClicker3[i]->initMusic(this->soundtrack);
+	}
+	this->spriteSettings->initMusic(this->soundtrack);
+}
+
 void ChoiceState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(this->sprite);

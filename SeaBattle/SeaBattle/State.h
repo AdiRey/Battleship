@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "SpriteClicker.h"
+#include "Soundtrack.h"
 using namespace sf;
 class State : public sf::Drawable
 {
@@ -12,8 +13,10 @@ protected:
 public:
 	State();
 	virtual ~State();
+
 	virtual void init(sf::RenderWindow* window) = 0;
 	virtual void handleInput() = 0;
+	virtual void initMusic(Soundtrack* soundtrack) = 0;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 };
 

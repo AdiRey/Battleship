@@ -29,20 +29,31 @@ void SettingsState::handleInput()
 		this->resumeButton->update(position, event);
 		this->volumeButton->update(position, event);
 		this->exitButton->update(position, event);
-
+		
 		if (event.type == Event::Closed)
-			this->window->close();
-		else if (this->manager.isShapeLeftClicked(this->resumeButton->getButton(), event, position))
+		{
+			this->soundtrack->getSoundClicked().play();
+			appStates = AppStates::GOODBYE;
+		}
+		else if (this->manager.isShapeLeftClicked(this->resumeButton->getButton(), event, position) 
+			|| Keyboard::isKeyPressed(Keyboard::Escape))
 			appStates = this->previous;
 		else if (this->manager.isShapeLeftClicked(this->volumeButton->getButton(), event, position))
 			appStates = AppStates::VOLUME;
 		else if (this->manager.isShapeLeftClicked(this->exitButton->getButton(), event, position))
-		{
-			appStates = AppStates::CLOSE;
-			return;
-		}
+			appStates = AppStates::GOODBYE;
 	}
 }
+
+void SettingsState::initMusic(Soundtrack* soundtrack)
+{
+	this->soundtrack = soundtrack;
+	this->resumeButton->initMusic(this->soundtrack);
+	this->volumeButton->initMusic(this->soundtrack);
+	this->exitButton->initMusic(this->soundtrack);
+	this->spriteSettings->initMusic(this->soundtrack);
+}
+
 
 void SettingsState::setPreviousState(AppStates previous)
 {

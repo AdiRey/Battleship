@@ -7,13 +7,6 @@ Button::Button(float x, float y, float width, float height, std::string text, st
 	shape.setSize(Vector2f(width, height));
 	this->font.loadFromFile(fontName + ".ttf");
 
-	this->bufferOne.loadFromFile("music/Click2-Sebastian-759472264.ogg");
-	this->bufferTwo.loadFromFile("music/Click-On-SoundBible.com-1697535117.ogg");
-	this->soundOne.setBuffer(this->bufferOne);
-	this->soundTwo.setBuffer(this->bufferTwo);
-	this->soundOne.setLoop(false);
-	this->soundTwo.setLoop(false);
-
 	this->idColor = idColor;
 	this->hoverColor = hoverColor;
 	this->activeColor = activeColor;
@@ -55,12 +48,12 @@ void Button::update(Vector2f& pos, Event& event)
 		text.setFillColor(hoverColor);
 		if (this->hoverOnce)
 		{
-			this->soundOne.play();
+			this->soundtrack->getSoundHov().play();
 			this->hoverOnce = false;
 		}
 		break;
 	case BTN_ACTIVE:
-		this->soundTwo.play();
+		this->soundtrack->getSoundClicked().play();
 		text.setFillColor(activeColor);
 		break;
 	default:
@@ -84,6 +77,10 @@ Text& Button::getTextButton()
 	return this->text;
 }
 
+void Button::initMusic(Soundtrack* soundtrack)
+{
+	this->soundtrack = soundtrack;
+}
 
 void Button::render(RenderTarget* target) const
 {

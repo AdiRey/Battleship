@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <vector>
 #include "DEFINITIONS.h"
 #include "State.h"
@@ -10,12 +9,16 @@
 #include "EndState.h"
 #include "ChoiceState.h"
 #include "SettingsState.h"
+#include "VolumeState.h"
+#include "Soundtrack.h"
+#include "GoodbyeState.h"
 
 class Engine
 {
 private:
 	sf::RenderWindow* window;
-	sf::Music music;
+
+	Soundtrack* soundtrack;
 
 	std::vector<State*> states;
 

@@ -20,6 +20,7 @@ public:
 	void setText(std::string newText);
 	void setPosition(Vector2f pos);
 	void setOutlines(Color color = Color::Black, float thickness = 1);
+	void setStyle(Uint32 style = Text::Regular);
 
 	// Print
 	void render(RenderTarget& target) const;

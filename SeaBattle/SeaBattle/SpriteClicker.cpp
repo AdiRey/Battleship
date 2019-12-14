@@ -17,13 +17,6 @@ SpriteClicker::SpriteClicker(float x, float y, std::string spriteName, std::stri
 			this->sprite[2].setPosition(x, y);
 		}
 	}
-
-	this->bufferOne.loadFromFile("music/Click2-Sebastian-759472264.ogg");
-	this->bufferTwo.loadFromFile("music/Click-On-SoundBible.com-1697535117.ogg");
-	this->soundOne.setBuffer(this->bufferOne);
-	this->soundTwo.setBuffer(this->bufferTwo);
-	this->soundOne.setLoop(false);
-	this->soundTwo.setLoop(false);
 }
 
 int SpriteClicker::update(Vector2f& pos, Event& event)
@@ -48,13 +41,13 @@ int SpriteClicker::update(Vector2f& pos, Event& event)
 		this->which = 1;
 		if (this->hoverOnce)
 		{
-			this->soundOne.play();
+			this->soundtrack->getSoundHov().play();
 			this->hoverOnce = false;
 		}
 		break;
 	case SP_ACTIVE:
 		this->which = 2;
-		this->soundTwo.play();
+		this->soundtrack->getSoundClicked().play();
 		break;
 	default:
 		break;
@@ -72,7 +65,11 @@ void SpriteClicker::setWhich(int which)
 	this->which = which;
 }
 
-// Print
+void SpriteClicker::initMusic(Soundtrack* soundtrack)
+{
+	this->soundtrack = soundtrack;
+}
+
 void SpriteClicker::render(RenderTarget* target) const
 {
 	switch (this->which)

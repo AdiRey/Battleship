@@ -3,11 +3,11 @@
 InitState::InitState()
 {
 	float x1 = 195.f, x2 = 195.f, y1 = 135.f, y2 = 135.f;
-	board = new Board(300, 300, x1, y1);
+	this->board = new Board(300, 300, x1, y1);
 
-	tableForShips.setPosition(570, 130);
-	tableForShips.setSize(Vector2f(125, 310));
-	tableForShips.setFillColor(Color(120,120,120,168));
+	this->tableForShips.setPosition(570, 130);
+	this->tableForShips.setSize(Vector2f(125, 310));
+	this->tableForShips.setFillColor(Color(120,120,120,168));
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -33,13 +33,14 @@ InitState::InitState()
 		}
 	}
 
-	button = new Button(1000, 500, 200, 50, "Next");
-	button->setStyle(Text::Italic);
-	setShipsSubtitle = new Subtitle("Ustaw wszystkie statki!", Vector2f(400, 510), Fonts::ARIAL, Color::Red, 30, Text::Italic);
-	playerName = new Subtitle("Player One", Vector2f(200, 60), Fonts::ARIAL, Color::White, 40, Text::Italic);
+	this->button = new Button(1000, 500, 200, 50, "Next");
+	this->button->setStyle(Text::Italic);
 
-	setShipsSubtitle->setOutlines(Color::Black, 2);
-	playerName->setOutlines(Color::Black, 2);
+	this->setShipsSubtitle = new Subtitle("Ustaw wszystkie statki!", Vector2f(400, 510), Fonts::ARIAL, Color::Red, 30, Text::Italic);
+	this->playerName = new Subtitle("Player One", Vector2f(200, 60), Fonts::ARIAL, Color::White, 40, Text::Italic);
+
+	this->setShipsSubtitle->setOutlines(Color::Black, 2);
+	this->playerName->setOutlines(Color::Black, 2);
 }
 
 InitState::~InitState()
@@ -97,8 +98,11 @@ void InitState::handleInput()
 
 		button->update(position, event);
 
-		if (event.type == Event::Closed)
-			appStates = AppStates::CLOSE;
+		if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape))
+		{
+			this->soundtrack->getSoundClicked().play();
+			appStates = AppStates::GOODBYE;
+		}
 		else if (clickNext(position, event))
 			appStates = AppStates::GAME_FRIEND;
 		else if (this->manager.isSpriteLeftClicked(this->spriteSettings->getSprite(), event, position))
@@ -192,6 +196,13 @@ bool InitState::isAllSet()
 	return false;
 }
 
+void InitState::initMusic(Soundtrack* soundtrack)
+{
+	this->soundtrack = soundtrack;
+	this->button->initMusic(this->soundtrack);
+	this->spriteSettings->initMusic(this->soundtrack);
+}
+
 void InitState::draw(RenderTarget& target, RenderStates states) const
 {
 	target.draw(sprite, states);
@@ -199,8 +210,8 @@ void InitState::draw(RenderTarget& target, RenderStates states) const
 	if (!showWrongSubtitle)
 	{
 		setShipsSubtitle->render(target);
-		target.draw(tableForShips, states);
 	}
+	target.draw(tableForShips, states);
 	board->render(target);
 	for (int i = 0; i < 10; i++)
 	{

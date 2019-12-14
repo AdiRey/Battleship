@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Board.h"
+#include <iostream>
 using namespace sf;
 
 class Ship

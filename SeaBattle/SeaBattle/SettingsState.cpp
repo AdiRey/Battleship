@@ -17,6 +17,7 @@ SettingsState::~SettingsState()
 void SettingsState::init(sf::RenderWindow* window)
 {
 	this->window = window;
+
 }
 
 void SettingsState::handleInput()

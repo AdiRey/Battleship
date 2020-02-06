@@ -180,7 +180,7 @@ bool Ship::getShow() const
 
 bool Ship::getShipIsSetOrNot()
 {
-	if (this->ship.getPosition() != mainLocation)
+	if (this->ship.getPosition() != this->mainLocation)
 		return true;
 	else
 		return false;

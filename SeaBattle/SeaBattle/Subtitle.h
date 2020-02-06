@@ -14,12 +14,13 @@ public:
 	Subtitle() = delete;
 	Subtitle(std::string str, Vector2f pos = Vector2f(0, 0), Fonts = Fonts::ARIAL,
 		Color fillColor = Color::White, int characterSize = 30, Uint32 style = Text::Regular);
-	~Subtitle() = default;
+	virtual ~Subtitle() = default;
 
 	// Methods
 	void setText(std::string newText);
 	void setPosition(Vector2f pos);
 	void setOutlines(Color color = Color::Black, float thickness = 1);
+	void setStyle(Uint32 style = Text::Regular);
 
 	// Print
 	void render(RenderTarget& target) const;

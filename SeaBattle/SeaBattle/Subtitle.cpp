@@ -25,7 +25,6 @@ void Subtitle::setOutlines(Color color, float thickness)
 	this->text.setOutlineThickness(thickness);
 }
 
-
 void Subtitle::setText(std::string newText)
 {
 	this->text.setString(newText);
@@ -34,6 +33,11 @@ void Subtitle::setText(std::string newText)
 void Subtitle::setPosition(Vector2f pos)
 {
 	this->text.setPosition(pos);
+}
+
+void Subtitle::setStyle(Uint32 style)
+{
+	this->text.setStyle(style);
 }
 
 void Subtitle::render(RenderTarget& target) const

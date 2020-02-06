@@ -6,14 +6,14 @@ class User
 {
 private:
 	std::string name;
-	Ship* shipsy[10];
+	Ship* ships[10];
 	bool isWinner{ false };
 
 public:
 	//Constructors and destructor
 	User() = delete;
 	User(std::string name);
-	~User() = default;
+	virtual ~User();
 
 	// Methods
 	void setShips(Ship** ships);

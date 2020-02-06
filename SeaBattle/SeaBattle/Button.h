@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include "Soundtrack.h"
 using namespace sf;
 
 enum buttonStates { BTN_ID = 0, BTN_HOV = 1, BTN_ACTIVE = 2 };
@@ -7,9 +9,12 @@ enum buttonStates { BTN_ID = 0, BTN_HOV = 1, BTN_ACTIVE = 2 };
 class Button
 {
 private:
+	Soundtrack* soundtrack;
+
 	int buttonState{ BTN_ID };
 
 	RectangleShape shape;
+	bool hoverOnce{ true };
 
 	Font font{};
 	Text text{};
@@ -32,6 +37,7 @@ public:
 	RectangleShape getButton() const;
 	Text& getTextButton();
 	void setStyle(Uint32 style = Text::Regular);
+	void initMusic(Soundtrack* soundtrack);
 
 	// Print
 	void render(RenderTarget* target) const;

@@ -28,17 +28,16 @@ Button::Button(float x, float y, float width, float height, std::string text, st
 
 void Button::update(Vector2f& pos, Event& event)
 {
-	buttonState = BTN_ID;
+	this->buttonState = BTN_ID;
 
 	if (shape.getGlobalBounds().contains(pos.x, pos.y))
 	{
-		buttonState = BTN_HOV;
-
+		this->buttonState = BTN_HOV;
 		if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
-		{
-			buttonState = BTN_ACTIVE;
-		}
+			this->buttonState = BTN_ACTIVE;
 	}
+	else
+		this->hoverOnce = true;
 
 	switch (buttonState)
 	{
@@ -47,8 +46,14 @@ void Button::update(Vector2f& pos, Event& event)
 		break;
 	case BTN_HOV:
 		text.setFillColor(hoverColor);
+		if (this->hoverOnce)
+		{
+			this->soundtrack->getSoundHov().play();
+			this->hoverOnce = false;
+		}
 		break;
 	case BTN_ACTIVE:
+		this->soundtrack->getSoundClicked().play();
 		text.setFillColor(activeColor);
 		break;
 	default:
@@ -72,6 +77,10 @@ Text& Button::getTextButton()
 	return this->text;
 }
 
+void Button::initMusic(Soundtrack* soundtrack)
+{
+	this->soundtrack = soundtrack;
+}
 
 void Button::render(RenderTarget* target) const
 {

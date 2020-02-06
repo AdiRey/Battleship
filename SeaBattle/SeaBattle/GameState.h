@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "State.h"
 #include <Windows.h>
 #include "Board.h"
 #include "User.h"
@@ -7,45 +8,51 @@
 #include "Button.h"
 #include "Subtitle.h"
 #include "Ship.h"
-
-class GameMap : public Drawable
+#include "EventManager.h"
+#include "DEFINITIONS.h"
+class GameState : public State
 {
 private:
-	Sprite sprite;
-	Texture texture;
+	Soundtrack* soundtrack;
+
+	sf::RenderWindow* window;
+	EventManager manager;
 
 	Texture textureToPointer;
 	Sprite pointer;
 
-	User* players[2];
+	User* player[2];
+	Ship** shipsOne;
+	Ship** shipsTwo;
 
 	Subtitle* playerOneName;
 	Subtitle* playerTwoName;
 
 	int currentPlayerMove{ 0 };
 
+	// Coord Boards
 	float x1a = 195.f, x2a = 705.f, y1a = 135.f, y2a = 135.f;
 	float x1b = 195.f, x2b = 705.f, y1b = 135.f, y2b = 135.f;
-
 	Board* boards[2];
 
 	Field* fieldsOne[10][10];
 	Field* fieldsTwo[10][10];
 
-	Ship** shipsOne;
-	Ship** shipsTwo;
 
-	bool allShipsDown();
+	void allShipsDown();
 
 public:
 	//Constructor and destructor
-	GameMap();
-	~GameMap() = default;
+	GameState();
+	virtual ~GameState();
 
 	// Methods
-	bool update(Vector2f& pos, Event& event);
 	void initSets(User** users);
 
-	//Print
+	// Inheritance
+	void handleInput() override;
+	void init(sf::RenderWindow* window) override;
+	void initMusic(Soundtrack* soundtrack) override;
 	void draw(RenderTarget& target, RenderStates states) const override;
 };
+
